@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!--
+
+               Copyright 2018-2021 the original author or authors.
+
+               Licensed under the Apache License, Version 2.0 (the "License");
+               you may not use this file except in compliance with the License.
+               You may obtain a copy of the License at
+
+                  http://www.apache.org/licenses/LICENSE-2.0
+
+               Unless required by applicable law or agreed to in writing, software
+               distributed under the License is distributed on an "AS IS" BASIS,
+               WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+               See the License for the specific language governing permissions and
+               limitations under the License.
+
+        -->
+
+        <!ELEMENT configuration (properties,context)>
+        <!ELEMENT properties (#PCDATA)>
+        <!ATTLIST properties
+                resource CDATA #REQUIRED
+                >
+        <!ELEMENT context (connection, javaModels?, mapperModels?, htmlModels?, tables)>
+
+        <!ELEMENT connection (property?)>
+
+        <!ELEMENT property (#PCDATA)>
+        <!ATTLIST property
+                name CDATA #REQUIRED
+                value CDATA #REQUIRED
+                >
+        <!ELEMENT javaModels (javaModel+)>
+        <!ATTLIST javaModels
+                directory CDATA #REQUIRED
+                templatePath CDATA #REQUIRED
+                >
+
+        <!ELEMENT javaModel (property+)>
+        <!ATTLIST javaModel
+                override (true|false) false>
+
+        <!ELEMENT mapperModels (mapperModel+)>
+        <!ATTLIST mapperModels
+                directory CDATA #REQUIRED
+                templatePath CDATA #REQUIRED>
+        <!ELEMENT mapperModel (property+)>
+        <!ATTLIST mapperModel
+                override (true|false) false>
+
+        <!ELEMENT htmlModels (htmlModel+)>
+        <!ATTLIST htmlModels
+                directory CDATA #REQUIRED
+                templatePath CDATA #REQUIRED>
+        <!ELEMENT htmlModel (property+)>
+        <!ATTLIST htmlModel
+                override (true|false) false>
+        <!ELEMENT tables (table)>
+
+        <!ELEMENT table (#PCDATA)>
+        <!ATTLIST table
+                prefix CDATA>
+
+

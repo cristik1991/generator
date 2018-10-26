@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration >
+<configuration>
+    <properties resource="/generator.properties"/>
+    <context>
+        <!-- 数据库连接信息 -->
+        <connection>
+            <property name="driverName" value="${mysql.driverName}"/>
+            <property name="url" value="${mysql.connectionURL}"/>
+            <property name="username" value="${mysql.user}"/>
+            <property name="password" value="${mysql.password}"/>
+            <property name="schema" value="${mysql.schema}"/>
+        </connection>
+        <!-- Java模板 -->
+        <javaModels directory="src/test/java" templatePath="src/main/resources/templates/codeTemplate/crud">
+            <javaModel override="true">
+                <property name="package" value="com.gen.modules.sys.controller"/>
+                <property name="templateName" value="Controller.ftl"/>
+                <property name="layer" value="controller"/>
+            </javaModel>
+            <javaModel override="true">
+                <property name="package" value="com.gen.modules.sys.service"/>
+                <property name="templateName" value="Service.ftl"/>
+                <property name="layer" value="service"/>
+            </javaModel>
+            <javaModel override="true">
+                <property name="package" value="com.gen.modules.sys.service.impl"/>
+                <property name="templateName" value="ServiceImpl.ftl"/>
+                <property name="layer" value="serviceImpl"/>
+            </javaModel>
+            <javaModel override="true">
+                <property name="package" value="com.gen.modules.sys.entity.svo"/>
+                <property name="templateName" value="Entity.ftl"/>
+                <property name="layer" value="entity"/>
+            </javaModel>
+            <javaModel override="true">
+                <property name="package" value="com.gen.modules.sys.dao"/>
+                <property name="templateName" value="Dao.ftl"/>
+                <property name="layer" value="dao"/>
+            </javaModel>
+        </javaModels>
+        <!-- XML模板 -->
+        <mapperModels directory="src/main/resources"
+                   templatePath="src/main/resources/templates/codeTemplate/mybatis">
+            <mapperModel override="true">
+                <property name="targetDirectory" value="/mapping/sys"/>
+                <property name="templateName" value="Mapper.ftl"/>
+            </mapperModel>
+        </mapperModels>
+        <!-- JSP模板 -->
+        <!--<htmlModels directory="src/main/webapp" templatePath="src/main/resources/templates/codeTemplate/html">-->
+            <!--<htmlModel override="true">-->
+                <!--<property name="targetDirectory" value="WEB-INF/views/sys"/>-->
+                <!--<property name="templateName" value="create.ftl"/>-->
+                <!--<property name="type" value="create"/>-->
+            <!--</htmlModel>-->
+            <!--<htmlModel override="true">-->
+                <!--<property name="targetDirectory" value="WEB-INF/views/sys"/>-->
+                <!--<property name="templateName" value="update.ftl"/>-->
+                <!--<property name="type" value="update"/>-->
+            <!--</htmlModel>-->
+            <!--<htmlModel override="true">-->
+                <!--<property name="targetDirectory" value="WEB-INF/views/sys"/>-->
+                <!--<property name="templateName" value="query.ftl"/>-->
+                <!--<property name="type" value="list"/>-->
+            <!--</htmlModel>-->
+            <!--<htmlModel override="true">-->
+                <!--<property name="targetDirectory" value="WEB-INF/views/sys"/>-->
+                <!--<property name="templateName" value="view.ftl"/>-->
+                <!--<property name="type" value="view"/>-->
+            <!--</htmlModel>-->
+        <!--</htmlModels>-->
+        <!-- 表操作 -->
+        <tables>
+            <table>dict</table>
+        </tables>
+    </context>
+</configuration>
