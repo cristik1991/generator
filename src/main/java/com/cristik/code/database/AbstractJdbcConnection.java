@@ -1,7 +1,6 @@
 package com.cristik.code.database;
 
 import com.cristik.code.model.JdbcConnection;
-import com.cristik.code.table.Column;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

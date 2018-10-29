@@ -7,6 +7,11 @@ import com.cristik.code.convert.Style;
  */
 public class StringUtil {
 
+    private static final int START = 'A';
+
+    private static final int END = 'Z';
+
+
     public static String convertByStyle(String str, Style style) {
         switch (style) {
             case camel:
@@ -21,8 +26,22 @@ public class StringUtil {
                 return str.toLowerCase();
             case underlineUppercase:
                 return toUnderScoreCase(str).toUpperCase();
+            case firstcapitalize:
+                return toFirstLowerCase(str);
             default:
                 return str;
+        }
+    }
+
+    private static String toFirstLowerCase(String str) {
+        if (str == null || str.isEmpty()) {
+            return "";
+        } else {
+            char[] cs = str.toCharArray();
+            if (cs[0] >= START && cs[0] <= END) {
+                cs[0] += 32;
+            }
+            return String.valueOf(cs);
         }
     }
 
@@ -35,7 +54,6 @@ public class StringUtil {
             return "";
         } else if (!str.contains("_")) {
             return str.toLowerCase();
-//            return str.substring(0, 1).toLowerCase() + str.substring(1);
         }
         String camels[] = str.split("_");
         for (String camel : camels) {

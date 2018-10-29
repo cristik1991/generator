@@ -41,7 +41,7 @@ public class ParameterHolder {
             if (model instanceof JavaModel) {
                 JavaModel javaModel = (JavaModel) model;
                 javaModel.setClassName(nameStrategy.formatName(javaModel.getLayer(), beanDefine.getClassName()));
-                javaModel.setObjectName(StringUtil.convertByStyle(javaModel.getClassName(), Style.camel));
+                javaModel.setObjectName(StringUtil.convertByStyle(javaModel.getClassName(), Style.firstcapitalize));
                 javaModel.getImportList().addAll(beanDefine.getDependencies());
                 javaLayerMap.put(model.getLayer(), javaModel);
             }
@@ -78,7 +78,7 @@ public class ParameterHolder {
             context.put(Template.SERVICE_IMPL_PACKAGE, serviceImpl.getTargetDirectory());
             context.put(Template.SERVICE_IMPL_IMPORT_LIST, serviceImpl.getImportList());
             context.put(Template.SERVICE_IMPL_CLASS_NAME, serviceImpl.getClassName());
-            context.put(Template.SERVICE_IMPL_OBJECT_NAME, serviceImpl.getObjectName());
+            context.put(Template.SERVICE_IMPL_OBJECT_NAME, context.get(Template.ENTITY_OBJECT_NAME) + "Service");
         }
         if (exist(Layer.Controller)) {
             JavaModel controller = javaLayerMap.get(Layer.Controller);

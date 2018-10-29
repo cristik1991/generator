@@ -17,4 +17,6 @@ public enum Style {
     lowercase,
     //驼峰转下划线大写形式
     underlineUppercase,
+    //首字母大写
+    firstcapitalize
 }
