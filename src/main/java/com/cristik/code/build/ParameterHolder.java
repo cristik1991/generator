@@ -94,7 +94,7 @@ public class ParameterHolder {
                         && context.get(Template.ENTITY_CLASS_NAME) != null
                         && context.get(Template.MAPPER_CLASS_NAME) != null
                         && context.get(Template.MAPPER_PACKAGE) != null) {
-                    String namespace = context.get(Template.MAPPER_PACKAGE).toString() +
+                    String namespace = context.get(Template.MAPPER_PACKAGE).toString() + "." +
                             context.get(Template.MAPPER_CLASS_NAME).toString();
                     String type = context.get(Template.ENTITY_PACKAGE).toString() + "." +
                             context.get(Template.ENTITY_CLASS_NAME).toString();
