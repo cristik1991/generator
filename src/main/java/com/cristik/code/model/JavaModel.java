@@ -1,7 +1,8 @@
 package com.cristik.code.model;
 
-import com.cristik.code.convert.Layer;
 import com.cristik.code.table.Field;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,9 @@ import java.util.List;
 /**
  * @author cristik
  */
+
+@Data
+@Accessors(chain = true)
 public class JavaModel extends Model {
 
     /**
@@ -30,32 +34,4 @@ public class JavaModel extends Model {
      * 属性列表
      */
     private List<Field> fields;
-
-    public List<String> getImportList() {
-        return importList;
-    }
-
-    public String getObjectName() {
-        return objectName;
-    }
-
-    public void setObjectName(String objectName) {
-        this.objectName = objectName;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-    public List<Field> getFields() {
-        return fields;
-    }
-
-    public void setFields(List<Field> fields) {
-        this.fields = fields;
-    }
 }

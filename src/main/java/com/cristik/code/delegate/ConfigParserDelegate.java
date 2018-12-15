@@ -1,5 +1,7 @@
 package com.cristik.code.delegate;
 
+import com.cristik.code.config.GeneratorConfig;
+import com.cristik.code.delegate.java.JavaConfigParser;
 import com.cristik.code.exception.ParseException;
 import com.cristik.code.convert.ConfigType;
 import com.cristik.code.delegate.xml.XmlConfigParser;
@@ -18,12 +20,24 @@ public class ConfigParserDelegate {
         return new XmlConfigParser(resource);
     }
 
-    public static Config delegateParse(String resource, ConfigType configType) throws ParseException {
+    private static ConfigParser javaDelegate(GeneratorConfig generatorConfig) {
+        return new JavaConfigParser(generatorConfig);
+    }
+
+    public static Config delegateParse(Object setting, ConfigType configType) throws ParseException {
         ConfigParser configParser;
         switch (configType) {
             case xml:
                 logger.debug("use xml parse to deal with resource");
-                configParser = xmlDelegate(resource);
+                configParser = xmlDelegate((String) setting);
+                break;
+            case java:
+                logger.debug("use java code setting to deal with resource");
+                if (setting instanceof GeneratorConfig) {
+                    configParser = javaDelegate((GeneratorConfig) setting);
+                }else {
+                    throw new ParseException("Expected Config with GeneratorConfig");
+                }
                 break;
             default:
                 logger.error("config type is not specified");

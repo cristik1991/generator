@@ -1,8 +1,13 @@
 package com.cristik.code.model;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 /**
  * @author cristik
  */
+@Data
+@Accessors(chain = true)
 public class JdbcConnection {
 
     private String userName;
@@ -14,44 +19,4 @@ public class JdbcConnection {
     private String schema;
 
     private String url;
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getDriverName() {
-        return driverName;
-    }
-
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getSchema() {
-        return schema;
-    }
-
-    public void setSchema(String schema) {
-        this.schema = schema;
-    }
 }

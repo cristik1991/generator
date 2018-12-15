@@ -81,7 +81,18 @@ public class FreemarkerHelper {
      * 将.和\替换成/并截掉路径后的/部分
      */
     private static String formatPath(String path) {
-        String tempPath = path.replaceAll("\\\\", "/").replaceAll("\\.", "/");
+        String tempPath = path.replaceAll("\\\\", "/");
+        if (tempPath.endsWith(PATH_STRING[0]) || tempPath.endsWith(PATH_STRING[1])) {
+            tempPath = tempPath.substring(0, tempPath.length() - 1);
+        }
+        return tempPath;
+    }
+
+    /**
+     * 将.和\替换成/并截掉路径后的/部分
+     */
+    public static String formatPackage(String packagePath) {
+        String tempPath = packagePath.replaceAll("\\\\", "/").replaceAll("\\.", "/");
         if (tempPath.endsWith(PATH_STRING[0]) || tempPath.endsWith(PATH_STRING[1])) {
             tempPath = tempPath.substring(0, tempPath.length() - 1);
         }

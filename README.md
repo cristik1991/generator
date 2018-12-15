@@ -132,7 +132,7 @@ templateName：模板名称
 eg. table = test_pserson prefix = test_
 <table>
     <tr><td>Key</td><td>demo</td></tr>
-    <tr><td>${table}</td><td>test_person</td></tr>
+    <tr><td>${tableName}</td><td>test_person</td></tr>
     <tr><td>${entityPackage}</td><td>package xxx.xxx</td></tr>
     <tr><td>${entityImportList}</td><td>List<String></td></tr>
     <tr><td>${entityClassName}</td><td>Person</td></tr>

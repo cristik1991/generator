@@ -11,6 +11,9 @@ public class StringUtil {
 
     private static final int END = 'Z';
 
+    public static boolean isNotBlank(String s) {
+        return s != null && s.length() > 0;
+    }
 
     public static String convertByStyle(String str, Style style) {
         switch (style) {

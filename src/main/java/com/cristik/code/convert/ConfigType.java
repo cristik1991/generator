@@ -5,5 +5,6 @@ package com.cristik.code.convert;
  */
 
 public enum ConfigType {
-    xml
+    xml,
+    java,
 }

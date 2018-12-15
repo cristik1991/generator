@@ -35,7 +35,7 @@ public class JavaBuilder implements Builder {
                     String content = FreemarkerHelper.convertTemplate(templatePath, templateName, context);
                     logger.info("loading templateName={} from templatePath={},overried={} ", templateName, templatePath
                             , override);
-                    FreemarkerHelper.buildFile(directory, targetDirectory, fileName, override, content);
+                    FreemarkerHelper.buildFile(directory, FreemarkerHelper.formatPackage(targetDirectory), fileName, override, content);
                 } catch (IOException e) {
                     logger.error("build java {} failed for {}", javaModel.getClassName(), e.getMessage());
                     throw new BuildException(e.getMessage());

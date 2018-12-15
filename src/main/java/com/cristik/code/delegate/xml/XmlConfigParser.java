@@ -5,6 +5,7 @@ import com.cristik.code.delegate.ConfigParser;
 import com.cristik.code.exception.ParseException;
 import com.cristik.code.model.*;
 import com.cristik.code.table.Table;
+import com.cristik.code.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
@@ -164,7 +165,7 @@ public class XmlConfigParser implements ConfigParser {
     private void parseProperties(Config config, Node node) throws ParseException {
         Properties attributes = parseAttributes(node);
         String resource = attributes.getProperty(RESOURCE);
-        if (!isNotBlank(resource)) {
+        if (!StringUtil.isNotBlank(resource)) {
             throw new ParseException("jdbc properties is not configured");
         }
         InputStream inputStream = XmlConfigParser.class.getResourceAsStream(resource);
@@ -301,8 +302,7 @@ public class XmlConfigParser implements ConfigParser {
             table.setPrefix("");
         }
         table.setTableName(node.getFirstChild().getNodeValue());
-        table.setDisplayTableName(table.getTableName().substring(table.getPrefix().length()
-                , table.getTableName().length()));
+        table.setDisplayTableName(table.getTableName().substring(table.getPrefix().length()));
         tables.add(table);
     }
 
@@ -446,10 +446,6 @@ public class XmlConfigParser implements ConfigParser {
             default:
                 throw new ParseException("override is not match");
         }
-    }
-
-    public static boolean isNotBlank(String s) {
-        return s != null && s.length() > 0;
     }
 
 }

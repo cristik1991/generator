@@ -1,34 +1,32 @@
 package ${entityPackage};
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import javax.persistence.*;
+import java.io.Serializable;
 <#list entityImportList  as import>
-import ${import};
+    import ${import};
 </#list>
 
+/**
+ * @author cristik
+ */
+@Data
+@Accessors(chain = true)
 @Table(name="${tableName}")
-public class ${entityClassName} {
+public class ${entityClassName} implements Serializable{
 
-    <#list fields as field>
+<#list fields as field>
     <#if field.key>
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     <#else>
-    //${field.comment}
-    @Column
+    /**
+     * ${field.comment}
+     */
+     @Column
     </#if>
     private ${field.javaType} ${field.field};
-    </#list>
-
-    public ${entityClassName}() {
-    }
-    <#list fields as field>
-
-    public void ${field.setMethod}(${field.javaType} ${field.field}){
-        this.${field.field} = ${field.field};
-    }
-
-    public ${field.javaType} ${field.getMethod}(){
-        return ${field.field};
-    }
-    </#list>
+</#list>
 }

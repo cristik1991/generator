@@ -1,7 +1,6 @@
 package ${serviceImplPackage};
 
-import com.cristik.common.base.PageInfo;
-import com.cristik.common.exception.BusinessException;
+import com.cristik.common.message.Pagination;
 <#list serviceImplImportList as import>
 import ${import};
 </#list>
@@ -11,14 +10,12 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
- * @author cristik on ${.now}.
+ * @author cristik
  */
+
 @Service
 @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,rollbackFor = Exception.class)
 public class ${serviceImplClassName} implements ${serviceClassName} {
@@ -26,83 +23,54 @@ public class ${serviceImplClassName} implements ${serviceClassName} {
     @Autowired
     ${mapperClassName} ${mapperObjectName};
 
-    /**
-     * insert 不忽略null
-     */
     @Override
-    public boolean insert(${entityClassName} ${entityObjectName}) {
-        // TODO: 2016/7/18 设置新增时间,默认状态
-        return ${mapperObjectName}.insert(${entityObjectName}) == 1;
-    }
-
-    /**
-     * insert 忽略null值
-     */
-    @Override
-    public boolean insertSelective(${entityClassName} ${entityObjectName}){
-        // TODO: 2016/7/18 设置新增时间,默认状态
-        return ${mapperObjectName}.insertSelective(${entityObjectName}) == 1;
-    }
-
-    /**
-     *根据ID删除记录
-     */
-    @Override
-    public boolean deleteById(Integer id) {
-        return ${mapperObjectName}.deleteByPrimaryKey(id) == 1;
-    }
-
-    /**
-     *根据条件删除记录
-     */
-    @Override
-    public boolean delete(${entityClassName} ${entityObjectName}){
-        int num = ${mapperObjectName}.delete(${entityObjectName});
-        return num > 0;
+    public void insert${entityClassName}Selective(${entityClassName} ${entityObjectName}) {
+        //null属性不保存使用默认值
+        ${mapperObjectName}.insertSelective(${entityObjectName});
     }
 
     @Override
-    public boolean update(${entityClassName} ${entityObjectName}) {
-        // TODO: 2016/7/18 设置修改时间
-        return ${mapperObjectName}.updateByPrimaryKeySelective(${entityObjectName}) == 1;
+    public void delete${entityClassName}ById(Integer id) {
+        ${mapperObjectName}.deleteByPrimaryKey(id);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public ${entityClassName} queryById(Integer id) {
-        ${entityClassName} ${entityObjectName} = new ${entityClassName}();
-        ${entityObjectName}.set{bean.keyMethod}(id);
-        return ${mapperObjectName}.selectOne(${entityObjectName});
+    public void delete${entityClassName}sByIds(List<Integer> ids) {
+        ${mapperObjectName}.delete${entityClassName}sByIds(ids);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<${entityClassName}> query(${entityClassName} ${entityObjectName}){
+    public void deleteBy${entityClassName}(${entityClassName} ${entityObjectName}) {
+        ${mapperObjectName}.delete(${entityObjectName});
+    }
+
+    @Override
+    public void update${entityClassName}(${entityClassName} ${entityObjectName}) {
+        //跟新包括null值
+        ${mapperObjectName}.updateByPrimaryKey(${entityObjectName});
+    }
+
+    @Override
+    public void update${entityClassName}Selective(${entityClassName} ${entityObjectName}) {
+        //跟新不为null的值
+        ${mapperObjectName}.updateByPrimaryKeySelective(${entityObjectName});
+    }
+
+    @Override
+    public ${entityClassName} query${entityClassName}ById(Integer id) {
+        return ${mapperObjectName}.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<${entityClassName}> queryBy${entityClassName}(${entityClassName} ${entityObjectName}) {
         return ${mapperObjectName}.select(${entityObjectName});
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<${entityClassName}> selectAll(){
-        return ${mapperObjectName}.selectAll();
+    @Transactional(readOnly = true, propagation = Propagation.NOT_SUPPORTED)
+    public Pagination queryPagination(Pagination<${entityClassName}, ${entityClassName}> pagination) {
+        pagination.setData(${mapperObjectName}.queryPaginationData(pagination));
+        pagination.setTotal(${mapperObjectName}.queryPaginationCount(pagination));
+        return pagination;
     }
-
-    /**
-     * 分页查询
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public PageInfo queryPage(PageInfo pageInfo,${entityClassName} ${entityObjectName}) {
-        Map map = new HashMap<String,Object>();
-        map.put("${entityObjectName}",${entityObjectName});
-        map.put("start", pageInfo.getStart());
-        map.put("length", pageInfo.getLength());
-        List<${entityClassName}> list =  ${mapperObjectName}.queryPage(map);
-        Integer count = ${mapperObjectName}.queryCount(map);
-        pageInfo.setData(list);
-        pageInfo.setRecordsTotal(count);
-        pageInfo.setRecordsFiltered(count);
-        return pageInfo;
-    }
-
 }
